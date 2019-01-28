@@ -1,0 +1,22 @@
+{
+  "name": "hottest100",
+  "version": "1.0.0",
+  "description": "Simple script which scrapes hottest100.org for the top 100 songs from JJJ Hottest 100 (starting 1993)",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node ./index.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "cheerio": "^1.0.0-rc.2"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/cheerio": "^0.22.10",
+    "@types/node": "^10.12.18",
+    "ts-node": "^8.0.2",
+    "typescript": "^3.2.4"
+  }
+}
