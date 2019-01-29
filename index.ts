@@ -2,6 +2,8 @@ import axios from 'axios';
 import cheerio from 'cheerio';
 import fs from 'fs';
 
+const SEPERATOR = '\t';
+
 const parseHtml = ($: CheerioStatic, year: number) => {
   return $('#list tr')
     .slice(1)
@@ -10,14 +12,14 @@ const parseHtml = ($: CheerioStatic, year: number) => {
             .text()
             .trim()
             .replace(/^\s+/mg, '')
-            .replace(/\n/g, ',')
+            .replace(/\n/g, SEPERATOR)
             // remove index from entry
-            .split(',')
+            .split(SEPERATOR)
             .slice(1)
-            .join(',')
+            .join(SEPERATOR)
     })
     .toArray()
-    .map(row => `${year},${row}`)
+    .map(row => `${year}${SEPERATOR}${row}`)
     .join('\n');
 }
 
@@ -42,8 +44,8 @@ const main = async () => {
         });
 
     const tables = await Promise.all(requests); 
-    fs.writeFileSync('./data.csv', [
-        'year,title,artist,duration,country',
+    fs.writeFileSync('./data.tsv', [
+      `year${SEPERATOR}title${SEPERATOR}artist${SEPERATOR}duration${SEPERATOR}country`,
         ...tables,
         '\n'
     ].join('\n'));
